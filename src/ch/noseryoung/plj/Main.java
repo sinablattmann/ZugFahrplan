@@ -1,8 +1,11 @@
 package ch.noseryoung.plj;
 
-public class Main {
+import java.io.FileNotFoundException;
+import java.util.List;
 
-    public static void main(String[] args) {
-	// write your code here
-    }
+public class Main {
+  public static void main(String[] args) {
+    TrainDepartureAdmin trainDepartureAdmin = new TrainDepartureAdmin();
+    List<Departure> ka = trainDepartureAdmin.getPlatformDepartures("12", "09:00");
+  }
 }

@@ -1,62 +1,51 @@
 package ch.noseryoung.plj;
 
-import java.time.LocalDate;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TrainDepartureAdmin {
-    private String trainLabel;
-    private LocalDate departureTime;
-    private String destination;
-    private String via;
-    private String pltaform;
-
-    public TrainDepartureAdmin() {
+  List<Departure> getDepartures(String time) {
+    List<Departure> departuresAtTime = new ArrayList<>();
+    try {
+      int counter = 0;
+      List<Departure> departures = Departure.extractCsv();
+      for (Departure departure : departures) {
+        if (departure.isEarlier(time)) {
+          departures.add(departure);
+          counter++;
+          if (counter > 19) {
+            break;
+          }
+        }
+      }
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
     }
+    return departuresAtTime;
+  }
 
-    public TrainDepartureAdmin(String trainLabel, LocalDate departure, String destination, String via, String pltaform) {
-        this.trainLabel = trainLabel;
-        this.departureTime = departure;
-        this.destination = destination;
-        this.via = via;
-        this.pltaform = pltaform;
+  List<Departure> getPlatformDepartures(String platform, String time) {
+    List<Departure> departuresOnPlatform = new ArrayList<>();
+    try {
+      List<Departure> departures = Departure.extractCsv();
+      int counter = 0;
+      for (Departure departure : departures) {
+        if (departure.isEarlier(time) && departure.getPlatform().equals(platform)) {
+          departuresOnPlatform.add(departure);
+          counter++;
+        }
+        if (counter > 1) {
+          break;
+        }
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
     }
+    return departuresOnPlatform;
+  }
 
-    public String getTrainLabel() {
-        return trainLabel;
-    }
-
-    public void setTrainLabel(String trainLabel) {
-        this.trainLabel = trainLabel;
-    }
-
-    public LocalDate getDepartureTime() {
-        return departureTime;
-    }
-
-    public void setDepartureTime(LocalDate departureTime) {
-        this.departureTime = departureTime;
-    }
-
-    public String getDestination() {
-        return destination;
-    }
-
-    public void setDestination(String destination) {
-        this.destination = destination;
-    }
-
-    public String getVia() {
-        return via;
-    }
-
-    public void setVia(String via) {
-        this.via = via;
-    }
-
-    public String getPltaform() {
-        return pltaform;
-    }
-
-    public void setPltaform(String pltaform) {
-        this.pltaform = pltaform;
-    }
+  List<Departure> getDeparturesToCity(String city) {
+    return new ArrayList<>();
+  }
 }

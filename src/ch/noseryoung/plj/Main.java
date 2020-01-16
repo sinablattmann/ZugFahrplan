@@ -42,7 +42,6 @@ public class Main {
         System.exit(0);
       default:
         break;
-
     }
 
     List<Departure> ka = trainDepartureAdmin.getPlatformDepartures("21", "09:00");

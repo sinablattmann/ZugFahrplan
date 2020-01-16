@@ -9,12 +9,10 @@ public class TrainDepartureAdmin {
   List<Departure> getDepartures(String time) {
     List<Departure> departuresAtTime = new ArrayList<>();
     try {
-      int counter = 0;
       List<Departure> departures = Departure.extractCsv();
       for (Departure departure : departures) {
-        if (departure.isLater(time) && counter < 20) {
+        if (departure.isLater(time) && departuresAtTime.size() < 21) {
           departuresAtTime.add(departure);
-          counter++;
         }
       }
     } catch (FileNotFoundException e) {
@@ -27,14 +25,12 @@ public class TrainDepartureAdmin {
     List<Departure> departuresOnPlatform = new ArrayList<>();
     try {
       List<Departure> departures = Departure.extractCsv();
-      int counter = 0;
       for (Departure departure : departures) {
-        if (departure.isLater(time) && counter < 2) {
+        if (departure.isLater(time) && departuresOnPlatform.size() < 2) {
           String[] parts = departure.getPlatform().split("\\W");
           for (String part : parts) {
             if (part.equals(platform)) {
               departuresOnPlatform.add(departure);
-              counter++;
               break;
             }
           }

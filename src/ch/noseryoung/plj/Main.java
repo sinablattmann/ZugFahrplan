@@ -1,17 +1,27 @@
 package ch.noseryoung.plj;
 
-import java.util.List;
 import java.util.Scanner;
 
+/**
+ * The Main class
+ *
+ * @author Sina
+ */
 public class Main {
+  /**
+   * The entry point of application.
+   *
+   * @param args the input arguments
+   */
   public static void main(String[] args) {
     TrainDepartureAdmin trainDepartureAdmin = new TrainDepartureAdmin();
     Scanner scanner = new Scanner(System.in);
+    String choice = "1";
     System.out.println("Press 1 for departures at a specific time" +
             "\nPress 2 for departures on a specific platform" +
             "\nPress 3 for departures to a chosen train station" +
             "\nPress 4 to stop the program");
-    String choice = scanner.nextLine();
+    choice = scanner.nextLine();
     switch (choice) {
       case "1":
         System.out.println("Please enter a time (format: HH:mm): ");
@@ -43,8 +53,5 @@ public class Main {
       default:
         break;
     }
-
-    List<Departure> ka = trainDepartureAdmin.getPlatformDepartures("21", "09:00");
-    List<Departure> kaa = trainDepartureAdmin.getDeparturesToCity("Erlenbach ZH");
   }
 }

@@ -4,8 +4,17 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class contains all the methods used to get certain Departures
+ * @author Sina
+ */
 public class TrainDepartureAdmin {
 
+  /**
+   * This method returns a list of 20 departures at a specific time
+   * @param time  a String with a time in the format HH:mm
+   * @return a list with the departures after time
+   */
   List<Departure> getDepartures(String time) {
     List<Departure> departuresAtTime = new ArrayList<>();
     try {
@@ -21,6 +30,12 @@ public class TrainDepartureAdmin {
     return departuresAtTime;
   }
 
+  /**
+   * This method returns 2 departures on a platform at a specific time
+   * @param platform  a String with the number of the platform
+   * @param time  a String with a time in the format HH:mm
+   * @return a List with the asked for departures on a platform
+   */
   List<Departure> getPlatformDepartures(String platform, String time) {
     List<Departure> departuresOnPlatform = new ArrayList<>();
     try {
@@ -42,6 +57,11 @@ public class TrainDepartureAdmin {
     return departuresOnPlatform;
   }
 
+  /**
+   * This method returns all the Departures going to a city
+   * @param city  a String with the city
+   * @return a List with all the Departures to the specific city
+   */
   List<Departure> getDeparturesToCity(String city) {
     List<Departure> departuresToCity = new ArrayList<>();
     try {

@@ -37,7 +37,7 @@ public class Departure {
   }
 
 
-  public boolean isEarlier(String time){
+  public boolean isLater(String time){
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
     if((LocalTime.parse(this.getDepartureTime(), formatter).compareTo(LocalTime.parse(time, formatter))) > 0){
       return true;

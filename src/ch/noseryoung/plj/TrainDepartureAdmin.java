@@ -5,18 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TrainDepartureAdmin {
+
   List<Departure> getDepartures(String time) {
     List<Departure> departuresAtTime = new ArrayList<>();
     try {
       int counter = 0;
       List<Departure> departures = Departure.extractCsv();
       for (Departure departure : departures) {
-        if (departure.isEarlier(time)) {
-          departures.add(departure);
+        if (departure.isLater(time) && counter < 20) {
+          departuresAtTime.add(departure);
           counter++;
-          if (counter > 19) {
-            break;
-          }
         }
       }
     } catch (FileNotFoundException e) {
@@ -31,12 +29,15 @@ public class TrainDepartureAdmin {
       List<Departure> departures = Departure.extractCsv();
       int counter = 0;
       for (Departure departure : departures) {
-        if (departure.isEarlier(time) && departure.getPlatform().equals(platform)) {
-          departuresOnPlatform.add(departure);
-          counter++;
-        }
-        if (counter > 1) {
-          break;
+        if (departure.isLater(time) && counter < 2) {
+          String[] parts = departure.getPlatform().split("\\W");
+          for (String part : parts) {
+            if (part.equals(platform)) {
+              departuresOnPlatform.add(departure);
+              counter++;
+              break;
+            }
+          }
         }
       }
     } catch (Exception e) {
@@ -46,6 +47,21 @@ public class TrainDepartureAdmin {
   }
 
   List<Departure> getDeparturesToCity(String city) {
-    return new ArrayList<>();
+    List<Departure> departuresToCity = new ArrayList<>();
+    try {
+      List<Departure> departures = Departure.extractCsv();
+      for (Departure departure : departures) {
+        String[] parts = departure.getVia().split("- ");
+        for (String part : parts) {
+          if (part.equals(city)) {
+            departuresToCity.add(departure);
+            break;
+          }
+        }
+      }
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
+    return departuresToCity;
   }
 }

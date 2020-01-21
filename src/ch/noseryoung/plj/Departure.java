@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -50,7 +51,7 @@ public class Departure {
    * @throws FileNotFoundException if the file can't be found, this gets thrown
    */
   public static List<Departure> extractCsv() throws FileNotFoundException {
-    Scanner csvFile = new Scanner(new File("C:\\Work\\Source\\projects-idea\\Fahrplan\\src\\abfahrten_zhb.csv"));
+    Scanner csvFile = new Scanner(new File("src/abfahrten_zhb.csv"));
     ArrayList<Departure> departures = new ArrayList<>();
     while (csvFile.hasNextLine()) {
       String[] data = csvFile.nextLine().split(";");
@@ -65,7 +66,7 @@ public class Departure {
    * @param time a String with the time in the format HH:mm
    * @return true if the parameter is earlier than the Departure, false if the parameter is later than the Departure
    */
-  public boolean isLater(String time){
+  public boolean isLater(String time) throws DateTimeParseException {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
     if((LocalTime.parse(this.getDepartureTime(), formatter).compareTo(LocalTime.parse(time, formatter))) > 0){
       return true;

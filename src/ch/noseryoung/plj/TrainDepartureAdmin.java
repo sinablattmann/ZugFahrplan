@@ -1,6 +1,7 @@
 package ch.noseryoung.plj;
 
 import java.io.FileNotFoundException;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class TrainDepartureAdmin {
    * @param time  a String with a time in the format HH:mm
    * @return a list with the departures after time
    */
-  List<Departure> getDepartures(String time) {
+  List<Departure> getDepartures(String time) throws DateTimeParseException{
     List<Departure> departuresAtTime = new ArrayList<>();
     try {
       List<Departure> departures = Departure.extractCsv();
@@ -36,7 +37,7 @@ public class TrainDepartureAdmin {
    * @param time  a String with a time in the format HH:mm
    * @return a List with the asked for departures on a platform
    */
-  List<Departure> getPlatformDepartures(String platform, String time) {
+  List<Departure> getPlatformDepartures(String platform, String time) throws DateTimeParseException{
     List<Departure> departuresOnPlatform = new ArrayList<>();
     try {
       List<Departure> departures = Departure.extractCsv();
@@ -51,7 +52,7 @@ public class TrainDepartureAdmin {
           }
         }
       }
-    } catch (Exception e) {
+    } catch (FileNotFoundException e) {
       e.printStackTrace();
     }
     return departuresOnPlatform;

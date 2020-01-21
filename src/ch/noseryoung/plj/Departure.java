@@ -65,6 +65,7 @@ public class Departure {
    *
    * @param time a String with the time in the format HH:mm
    * @return true if the parameter is earlier than the Departure, false if the parameter is later than the Departure
+   * @throws DateTimeParseException Exception if time String is in wrong format
    */
   public boolean isLater(String time) throws DateTimeParseException {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
